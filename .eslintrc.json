@@ -1,0 +1,27 @@
+{
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
+  "extends": [
+    "airbnb-typescript",
+    "plugin:cypress/recommended"
+  ],
+  "plugins": ["cypress"],
+  "parserOptions": {
+    "project": "./tsconfig-eslint.json"
+  },
+  "env": {
+    "cypress/globals": true
+  },
+  "rules": {
+    "class-methods-use-this": "off",
+    "import/prefer-default-export": "off",
+    "react/jsx-props-no-spreading": "off",
+    "no-param-reassign": "off",
+    "@typescript-eslint/dot-notation": "off",
+    "@typescript-eslint/no-implied-eval": "off",
+    "@typescript-eslint/no-throw-literal": "off"
+  }
+}

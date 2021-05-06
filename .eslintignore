@@ -1,0 +1,9 @@
+node_modules
+.idea
+coverage
+public
+*.png
+*.svg
+*.js
+*json
+*.jpeg
