@@ -5,15 +5,10 @@
     }
   },
   "extends": [
-    "airbnb-typescript",
-    "plugin:cypress/recommended"
+    "airbnb-typescript"
   ],
-  "plugins": ["cypress"],
   "parserOptions": {
     "project": "./tsconfig-eslint.json"
-  },
-  "env": {
-    "cypress/globals": true
   },
   "rules": {
     "class-methods-use-this": "off",
@@ -22,6 +17,7 @@
     "no-param-reassign": "off",
     "@typescript-eslint/dot-notation": "off",
     "@typescript-eslint/no-implied-eval": "off",
-    "@typescript-eslint/no-throw-literal": "off"
+    "@typescript-eslint/no-throw-literal": "off",
+    "react/react-in-jsx-scope": "off"
   }
 }
