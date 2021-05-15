@@ -5,3 +5,4 @@ public/js
 .env
 dist
 .next
+lib

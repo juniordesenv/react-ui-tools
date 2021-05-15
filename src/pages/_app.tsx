@@ -3,7 +3,7 @@ import { AppProps } from 'next/app';
 import { useState } from 'react';
 import { ThemeProvider, Global } from '@emotion/react';
 import GlobalStyle from '@/styles/global.style';
-import { whiteTheme, darkTheme } from '@/styles/theme';
+import { whiteTheme, darkTheme } from '@/styles/theme.style';
 
 const App = ({ Component, pageProps }: AppProps) => {
   const [isDarkTheme, setIsDarkTheme] = useState(false);
@@ -16,7 +16,7 @@ const App = ({ Component, pageProps }: AppProps) => {
         type="button"
         onClick={() => { setIsDarkTheme(!isDarkTheme); }}
       >
-        <input type="checkbox" checked={isDarkTheme} />
+        <input type="checkbox" defaultChecked={isDarkTheme} />
         <span className="slider round" />
       </button>
       <Component {...pageProps} />

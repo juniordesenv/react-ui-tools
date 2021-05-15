@@ -1,9 +1,37 @@
+import { Input } from '@/components';
+import { useForm } from '@/hooks';
+import styled from '@emotion/styled';
 
+const MainWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+
+  > div {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    
+    > div {
+      margin: 8px;
+    }
+  }
+`;
 
 const HomePage = () => {
-  return (
-    <div>HELLO</div>
-  )
-}
+  const { inputs } = useForm<{ description: string }>({
+    initialValues: { description: '' },
+    onSubmit: (values) => {
+      console.log(values);
+    },
+  });
 
-export default HomePage
+  return (
+    <MainWrap>
+      <Input label="Teste" {...inputs.description} />
+    </MainWrap>
+  );
+};
+
+export default HomePage;
