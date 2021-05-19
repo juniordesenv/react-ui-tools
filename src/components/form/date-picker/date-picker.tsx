@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 
 import styled from '@emotion/styled';
 import { HelperText } from '@/components/form/helper-text/helper-text';
-import { useTheme } from '@emotion/react';
+import { useTheme } from 'emotion-theming';
 import { Theme, VariantColorsType } from '@/styles/theme';
 import IMask from 'imask';
 import { Calendar } from '@/components/calendar/calendar';

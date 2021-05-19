@@ -1,5 +1,5 @@
 import { Theme, VariantColorsType } from '@/styles/theme';
-import { css } from '@emotion/react';
+import { css } from '@emotion/core';
 
 type TooltipWrapProps = {
   theme?: Theme;

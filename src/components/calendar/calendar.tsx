@@ -1,4 +1,4 @@
-import { useTheme } from '@emotion/react';
+import { useTheme } from 'emotion-theming';
 import React from 'react';
 import styled from '@emotion/styled';
 
@@ -9,7 +9,7 @@ import Styles from './calendar.style';
 
 const CalendarWrap = styled.div`${Styles.calendarWrap}`;
 
-type CalendarProps = ReactCalendarProps & {
+export type CalendarProps = ReactCalendarProps & {
   variant?: VariantColorsType;
 };
 

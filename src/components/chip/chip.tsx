@@ -2,7 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 
 import { Theme, VariantColorsType } from '@/styles/theme';
-import { useTheme } from '@emotion/react';
+import { useTheme } from 'emotion-theming';
 import Styles from './chip.style';
 
 const ChipWrap = styled.div`${Styles.chipWrap}`;

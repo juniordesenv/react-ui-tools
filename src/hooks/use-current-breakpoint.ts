@@ -1,4 +1,4 @@
-import { useTheme } from '@emotion/react';
+import { useTheme } from 'emotion-theming';
 import { useState, useEffect } from 'react';
 import { Theme } from '@/styles/theme';
 

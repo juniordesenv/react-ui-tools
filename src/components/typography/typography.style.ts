@@ -1,4 +1,4 @@
-import { css } from '@emotion/react';
+import { css } from '@emotion/core';
 import { Theme, VariantColors, VariantColorsLevel } from '@/styles/theme';
 import { minQ } from '@/helpers/mq';
 

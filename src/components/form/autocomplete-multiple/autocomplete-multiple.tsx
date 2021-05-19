@@ -2,11 +2,11 @@ import React, { useEffect, useRef, useState } from 'react';
 
 import styled from '@emotion/styled';
 import { HelperText } from '@/components/form/helper-text/helper-text';
-import { useTheme } from '@emotion/react';
 import { Theme, VariantColorsType } from '@/styles/theme';
 import { useEscKeyUp, useOutsideClick, useTabKeyUp } from '@/hooks';
 import { ButtonIcon, Chip } from '@/components';
 import { FaTimes } from 'react-icons/fa';
+import { useTheme } from 'emotion-theming';
 import Styles from './autocomplete-multiple.style';
 
 const InputWrap = styled.div`${Styles.inputWrap}`;

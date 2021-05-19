@@ -30,7 +30,8 @@
     "dev": "next dev",
     "next:build": "next build",
     "start": "next start",
-    "build": "rollup -c"
+    "build": "rollup -c",
+    "prepare": "yarn build"
   },
   "dependencies": {
     "@emotion/core": "10.0.35",

@@ -19,12 +19,12 @@ type FormResultType<T> = {
   setValues: React.Dispatch<React.SetStateAction<object>>;
   errors: object;
   touched: object;
-  inputs: {[key in keyof T]?: InputProps<T>};
+  inputs: {[key in keyof T]?: InputPropsForm<T>};
   onSubmit: (values: any) => void | Promise<void>;
   isValid: boolean;
   isSubmitting: boolean;
 };
-export type InputProps<T = any> = {
+export type InputPropsForm<T = any> = {
   value: any;
   name: Extract<keyof T, string>;
   onChange: (event: React.ChangeEvent<any>) => void;
@@ -126,7 +126,7 @@ export const useForm = <T = any>({
       onBlur: handleBlur,
       touched: touched[key],
       error: errors[key],
-    } as InputProps<T>;
+    } as InputPropsForm<T>;
   });
 
   const handleSubmit = async (event: any) => {

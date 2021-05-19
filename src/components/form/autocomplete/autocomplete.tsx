@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 
 import styled from '@emotion/styled';
 import { HelperText } from '@/components/form/helper-text/helper-text';
-import { useTheme } from '@emotion/react';
+import { useTheme } from 'emotion-theming';
 import { Theme, VariantColorsType } from '@/styles/theme';
 import { useEscKeyUp, useOutsideClick, useTabKeyUp } from '@/hooks';
 import Styles from './autocomplete.style';
@@ -15,7 +15,7 @@ type Option = {
   description: string;
 };
 
-type InputProps = React.DetailedHTMLProps<
+export type AutocompleteProps = React.DetailedHTMLProps<
 React.InputHTMLAttributes<HTMLInputElement>,
 HTMLInputElement
 > & {
@@ -30,7 +30,7 @@ HTMLInputElement
   options: Option[];
 };
 
-const Autocomplete: React.FC<InputProps> = ({
+const Autocomplete: React.FC<AutocompleteProps> = ({
   error,
   touched,
   label,
@@ -41,7 +41,7 @@ const Autocomplete: React.FC<InputProps> = ({
   variant = 'primary',
   options,
   ...inputProps
-}: InputProps) => {
+}: AutocompleteProps) => {
   const theme = useTheme() as Theme;
   const [value, setValue] = useState('');
   const [inputFocused, setInputFocused] = useState<boolean>(false);

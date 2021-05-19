@@ -1,6 +1,7 @@
 import { Input } from '@/components';
 import { useForm } from '@/hooks';
 import styled from '@emotion/styled';
+import { Button } from '../../lib';
 
 const MainWrap = styled.div`
   display: flex;
@@ -30,6 +31,7 @@ const HomePage = () => {
   return (
     <MainWrap>
       <Input label="Teste" {...inputs.description} />
+      <Button>woowo</Button>
     </MainWrap>
   );
 };

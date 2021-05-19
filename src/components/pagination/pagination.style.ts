@@ -1,5 +1,5 @@
 import { Theme } from '@/styles/theme';
-import { css } from '@emotion/react';
+import { css } from '@emotion/core';
 
 const paginationWrap = css`
   width: 100%;

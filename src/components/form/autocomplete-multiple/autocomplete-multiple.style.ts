@@ -1,4 +1,4 @@
-import { css } from '@emotion/react';
+import { css } from '@emotion/core';
 import { Theme, VariantColors } from '@/styles/theme';
 import {
   inputStyle, invalidStyle, labelFocusInStyle, labelStyle, validStyle,

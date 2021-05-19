@@ -1,4 +1,4 @@
-import { css } from '@emotion/react';
+import { css } from '@emotion/core';
 
 const loadingWrap = ({ size }: { size: number }) => css`
   div {

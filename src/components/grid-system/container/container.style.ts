@@ -1,4 +1,4 @@
-import { css } from '@emotion/react';
+import { css } from '@emotion/core';
 import { minQ } from '@/helpers/mq';
 import { Theme } from '@/styles/theme';
 

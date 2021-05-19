@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 
 import styled from '@emotion/styled';
 import { useEscKeyUp, useOutsideClick } from '@/hooks';
-import { useTheme } from '@emotion/react';
+import { useTheme } from 'emotion-theming';
 import { Theme, VariantColorsType } from '@/styles/theme';
 import { FaChevronCircleDown } from 'react-icons/fa';
 import Styles from './select.style';

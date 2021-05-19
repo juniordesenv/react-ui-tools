@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { InputProps } from '@/hooks/use-form';
+import { InputPropsForm } from '@/hooks/use-form';
 
 type ArrayFieldResultType = {
-  fields: InputProps[];
+  fields: InputPropsForm[];
   onAdd: () => void;
   onRemove: (index: number) => void;
 };
 
 export const useArrayField = (
-  field: InputProps,
+  field: InputPropsForm,
 ): ArrayFieldResultType => {
-  const [fields, setFields] = useState<InputProps[]>([]);
+  const [fields, setFields] = useState<InputPropsForm[]>([]);
 
   useEffect(() => {
     const nextFields = [];

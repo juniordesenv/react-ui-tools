@@ -1,5 +1,5 @@
 import { Theme } from '@/styles/theme';
-import { css } from '@emotion/react';
+import { css } from '@emotion/core';
 import { minQ } from '@/helpers/mq';
 
 const sizeCols = 8.333;

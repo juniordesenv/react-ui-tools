@@ -1,4 +1,4 @@
-import { css } from '@emotion/react';
+import { css } from '@emotion/core';
 
 interface CheckboxWrapProps {
   display: 'inline' | 'block' | 'inline-block' | 'flex' | 'grid';

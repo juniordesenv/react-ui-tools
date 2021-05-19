@@ -1,9 +1,10 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import { AppProps } from 'next/app';
 import { useState } from 'react';
-import { ThemeProvider, Global } from '@emotion/react';
+import { Global } from '@emotion/core';
 import GlobalStyle from '@/styles/global.style';
 import { whiteTheme, darkTheme } from '@/styles/theme.style';
+import { ThemeProvider } from 'emotion-theming';
 
 const App = ({ Component, pageProps }: AppProps) => {
   const [isDarkTheme, setIsDarkTheme] = useState(false);

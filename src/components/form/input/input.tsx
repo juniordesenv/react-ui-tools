@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 
-import { useTheme } from '@emotion/react';
+import { useTheme } from 'emotion-theming';
 import styled from '@emotion/styled';
 import { HelperText } from '@/components/form/helper-text/helper-text';
 import { Theme, VariantColorsType } from '@/styles/theme';

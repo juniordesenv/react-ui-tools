@@ -1,8 +1,8 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { Loading } from '@/components/loading/loading';
 import React from 'react';
 import { VariantColorsType } from '@/styles/theme';
 import styled from '@emotion/styled';
+import { Loading } from '@/components/loading/loading';
 
 import Styles from './button.style';
 
@@ -24,9 +24,9 @@ HTMLButtonElement
 
 const Button: React.FC<ButtonProps> = ({
   children,
-  color,
-  variant,
-  scale,
+  color = 'primary',
+  variant = 'contained',
+  scale = 'main',
   type = 'button',
   fullWidth,
   isLoading,

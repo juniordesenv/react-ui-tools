@@ -1,4 +1,4 @@
-import { css } from '@emotion/react';
+import { css } from '@emotion/core';
 import { Theme } from '@/styles/theme';
 
 const tableWrap = css`

@@ -1,5 +1,5 @@
 import { Theme, VariantColors, VariantColorsType } from '@/styles/theme';
-import { css } from '@emotion/react';
+import { css } from '@emotion/core';
 
 type ContainedButtonProps = {
   color: VariantColors;
@@ -156,7 +156,7 @@ const ghostButtonCss = ({
 `;
 
 type ButtonProps = {
-  theme?: Theme;
+  theme: Theme;
   color: VariantColorsType;
   scale?: 'main' | 'light' | 'dark';
   variant?: 'contained' | 'outlined' | 'text' | 'ghost';
@@ -175,8 +175,8 @@ const buttonWrap = ({
   display: block;
   overflow: hidden;
   outline: none;
-  border-radius: ${theme?.button.radius};
-  box-shadow: ${theme?.button.shadow};
+  border-radius: ${theme.button.radius};
+  box-shadow: ${theme.button.shadow};
   padding: 12px 36px;
   width: ${fullWidth ? '100%' : 'auto'};
   cursor: pointer;

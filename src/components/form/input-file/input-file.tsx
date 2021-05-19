@@ -9,7 +9,7 @@ import {
   Typography,
 } from '@/components';
 import { HelperText } from '@/components/form/helper-text/helper-text';
-import { useTheme } from '@emotion/react';
+import { useTheme } from 'emotion-theming';
 import { FaTimes, FaUpload } from 'react-icons/fa';
 import Styles from './input-file.style';
 
@@ -174,7 +174,7 @@ const InputFile: React.FC<InputFileProps> = ({
             const fakeEvent: any = {
               target: {
                 name: inputProps.name,
-                value: multiple ? [...event.target.files] : event.target.files[0],
+                value: multiple ? [...event.target.files as any] : event.target.files[0],
               },
             };
             if (onChange) onChange(fakeEvent);
