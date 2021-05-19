@@ -1,6 +1,6 @@
 {
   "name": "@juniordesenv/react-ui-tools",
-  "version": "0.0.55",
+  "version": "0.0.56",
   "repository": "git://github.com/juniordesenv/react-ui-tools.git",
   "devDependencies": {
     "@rollup/plugin-commonjs": "^19.0.0",
