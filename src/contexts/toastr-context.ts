@@ -7,8 +7,8 @@ type Props = {
   listMessagesToastr: MessageToastr[];
 };
 
-const ApiContext = createContext<Props>(null);
+const ToastrContext = createContext<Props>(null);
 
 export {
-  ApiContext,
+  ToastrContext,
 };
