@@ -10,10 +10,14 @@ const ConfirmationWrap = styled.div`${Styles.confirmationWrap}`;
 
 export type ConfirmationProps = {
   isOpen: boolean;
+  title?: React.ReactNode | string;
+  confirmText?: string;
+  closeText?: string;
   handleClose: () => void;
   children: React.ReactNode;
   action: () => Promise<void>;
   ['data-testid']?: string;
+  className?: string;
 };
 
 const Confirmation: React.FC<ConfirmationProps> = ({
@@ -21,6 +25,10 @@ const Confirmation: React.FC<ConfirmationProps> = ({
   handleClose,
   children,
   action,
+  title,
+  confirmText,
+  className,
+  closeText,
   ...props
 }: ConfirmationProps) => {
   // eslint-disable-next-line react/destructuring-assignment
@@ -33,11 +41,12 @@ const Confirmation: React.FC<ConfirmationProps> = ({
   return (
     <ConfirmationWrap
       data-testid={dataTestid}
+      className={className}
     >
       <Modal isOpen={isOpen}>
         <ModalTitle handleClose={handleClose}>
           <Typography as="h6">
-            Confirmar Ação
+            { title || 'Confirmar Ação' }
           </Typography>
         </ModalTitle>
         <ModalContent>
@@ -45,18 +54,19 @@ const Confirmation: React.FC<ConfirmationProps> = ({
         </ModalContent>
         <ModalAction>
           <Button
-            variant="text"
+            variant="contained"
             data-testid={`${dataTestid}-cancel-action`}
             onClick={handleClose}
+            color="white"
           >
-            Fechar
+            { closeText || 'Fechar' }
           </Button>
           <Button
-            variant="text"
+            variant="contained"
             data-testid={`${dataTestid}-confirm-action`}
             onClick={handleConfirmation}
           >
-            Confirmar
+            { confirmText || 'Confirmar' }
           </Button>
         </ModalAction>
       </Modal>

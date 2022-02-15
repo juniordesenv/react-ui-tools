@@ -19,7 +19,7 @@ const containedButtonCss = ({
   transition: background-position-y .1s linear;
   color: ${color.contrastColor};
 
-  :hover, :focus {
+  :hover {
     opacity: 0.9;
     box-shadow: ${hoverShadow};
   }
@@ -47,6 +47,13 @@ const containedButtonCss = ({
     padding-top: 120%;
     transition: width .2s ease-out, padding-top .2s ease-out;
   }
+
+
+  .loading {
+    * {
+      border-color: ${color['contrastColor']};
+    }
+  }
 `;
 
 type OutlinedButtonProps = {
@@ -66,7 +73,7 @@ const outlinedButtonCss = ({
   background-color: transparent;
   color: ${color[scale]};
 
-  :hover, :focus {
+  :hover {
     box-shadow: ${hoverShadow};
   }
 
@@ -99,7 +106,7 @@ const textButtonCss = ({
   color: ${color[scale]};
 
 
-  :hover, :focus {
+  :hover {
     background-color: ${bgDefault};
     box-shadow: ${shadowHover};
   }
@@ -135,7 +142,7 @@ const ghostButtonCss = ({
   box-shadow: none;
   color: ${color[scale]};
 
-  :hover, :focus {
+  :hover {
     text-decoration: underline;
   }
 

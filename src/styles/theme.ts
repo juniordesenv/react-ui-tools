@@ -1,6 +1,6 @@
 export type VariantColorsLevel = 'main' | 'dark' | 'light' | 'contrastColor';
 
-export type VariantColorsType = 'primary' | 'secondary' | 'white' | 'black' | 'gray' | 'error' | 'warning' | 'info' | 'success' | 'disabled';
+export type VariantColorsType = 'primary' | 'secondary' | 'white' | 'black' | 'gray' | 'error' | 'warning' | 'info' | 'success' | 'disabled' | 'typography';
 
 export type VariantColors = {
   main: string;
@@ -21,6 +21,7 @@ export interface Theme {
     info: VariantColors;
     success: VariantColors;
     disabled: VariantColors;
+    typography: VariantColors;
   },
   breakpoints: {
     xs: number,
@@ -45,5 +46,5 @@ export interface Theme {
     labelColor: string;
     bgColor: string;
     shadowColor: string;
-  }
+  };
 }

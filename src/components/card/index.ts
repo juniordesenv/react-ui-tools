@@ -1,7 +1,5 @@
-import Styles from './calendar.style';
+import CardStyles from './card.style';
 
-export * from './calendar';
+export * from './card';
 
-const CalendarStyles = Styles;
-
-export { CalendarStyles };
+export { CardStyles };

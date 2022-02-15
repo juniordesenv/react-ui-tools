@@ -1,9 +1,19 @@
+import { Theme, VariantColorsType } from '@/styles/theme';
 import { css } from '@emotion/core';
 
-const loadingWrap = ({ size }: { size: number }) => css`
+type LoadingWrapProps = {
+  theme: Theme;
+  size: number;
+  color?: VariantColorsType;
+  scale?: 'main' | 'light' | 'dark' | 'contrastColor';
+};
+
+const loadingWrap = ({
+  size, color, scale, theme,
+}: LoadingWrapProps) => css`
   div {
     position: absolute;
-    border: 4px solid #fff;
+    border: 4px solid ${theme.colors[color][scale]};
     opacity: 1;
     border-radius: 50%;
     animation: lds-ripple 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;

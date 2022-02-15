@@ -1,7 +1,5 @@
-import Styles from './card.style';
+import ChipStyles from './chip.style';
 
-export * from './card';
+export * from './chip';
 
-const CardStyles = Styles;
-
-export { CardStyles };
+export { ChipStyles };

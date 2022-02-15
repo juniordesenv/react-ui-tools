@@ -1,5 +1,5 @@
-import PaginationStyles from './pagination.style';
+import ScrollbarStyles from './scrollbar.style';
 
-export * from './pagination.style';
+export * from './scrollbar';
 
-export { PaginationStyles };
+export { ScrollbarStyles };

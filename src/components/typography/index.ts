@@ -1,5 +1,5 @@
-import ToastrStyles from './toastr.style';
+import TypographyStyles from './typography.style';
 
-export * from './toastr';
+export * from './typography';
 
-export { ToastrStyles };
+export { TypographyStyles };

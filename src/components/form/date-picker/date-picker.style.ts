@@ -30,14 +30,7 @@ const inputWrap = ({
   
   input {
     ${inputStyle({ theme, variant })};
-    padding-right: 58px;
-    
-    &:not(:placeholder-shown) + label {
-      color: ${theme.colors.primary.main}; 
-      transform: scale(0.9) translateY(-20px);
-    }
-    
-    
+    padding-right: 58px;    
   }
   
   
@@ -52,11 +45,11 @@ const inputWrap = ({
       ${invalidStyle({ theme })}
     }
   }
-  
-  &:focus-within {
-      label {
-        ${labelFocusInStyle({ variant })}
-      }
+
+  &:focus-within, :not([data-value='']) {
+    label {
+      ${labelFocusInStyle({ variant })}
+    }
   }
   
   .button-icon {

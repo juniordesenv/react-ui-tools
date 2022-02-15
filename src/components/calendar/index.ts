@@ -1,8 +1,5 @@
-import Styles from './button.style';
+import CalendarStyles from './calendar.style';
 
-export * from './button';
-export * from './button-icon';
+export * from './calendar';
 
-const ButtonStyles = Styles;
-
-export { ButtonStyles };
+export { CalendarStyles };

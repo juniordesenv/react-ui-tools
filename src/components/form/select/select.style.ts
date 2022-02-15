@@ -51,7 +51,7 @@ const selectWrap = ({ theme, variant, fullWidth }: SelectWrapProps) => css`
       box-shadow: ${theme.card.shadow};
       background-color: white;
       list-style: none;
-      z-index: 4;
+      z-index: 1010;
       max-height: 300px;
       overflow-y: scroll;
       

@@ -1,5 +1,5 @@
-import ScrollbarStyles from './scrollbar.style';
+import ToastrStyles from './toastr.style';
 
-export * from './scrollbar';
+export * from './toastr';
 
-export { ScrollbarStyles };
+export { ToastrStyles };

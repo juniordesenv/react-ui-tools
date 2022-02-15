@@ -91,6 +91,12 @@ const whiteTheme = {
       dark: '#7a7a7a',
       contrastColor: '#fff',
     },
+    typography: {
+      light: '#747474',
+      main: '#4d4d4d',
+      dark: '#3a3a3a',
+      contrastColor: '#f8cb2c',
+    },
   },
 };
 
@@ -156,6 +162,12 @@ const darkTheme = {
       main: '#ccc',
       dark: '#7a7a7a',
       contrastColor: '#fff',
+    },
+    typography: {
+      light: '#747474',
+      main: '#4d4d4d',
+      dark: '#3a3a3a',
+      contrastColor: '#f8cb2c',
     },
   },
 };

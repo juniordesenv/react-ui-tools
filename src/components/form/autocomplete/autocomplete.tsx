@@ -1,3 +1,4 @@
+import { Scrollbar } from '@/components';
 import React, { useEffect, useRef, useState } from 'react';
 
 import styled from '@emotion/styled';
@@ -28,6 +29,7 @@ HTMLInputElement
   fullWidth?: boolean;
   variant?: VariantColorsType;
   options: Option[];
+  limitShowed?: number;
 };
 
 const Autocomplete: React.FC<AutocompleteProps> = ({
@@ -38,14 +40,17 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
   fullWidth,
   textHelper,
   hideHelper,
+  placeholder,
   variant = 'primary',
   options,
+  limitShowed,
   ...inputProps
 }: AutocompleteProps) => {
   const theme = useTheme() as Theme;
   const [value, setValue] = useState('');
   const [inputFocused, setInputFocused] = useState<boolean>(false);
   const [showDropdown, setShowDropdown] = useState<boolean>(false);
+  const [isEnterFocus, setIsEnterFocus] = useState<boolean>(false);
   const [forceValidationOnExit, setForceValidationOnExit] = useState<boolean>(false);
   const [triggerValidation, setTriggerValidation] = useState<boolean>(false);
   const menuRef = useRef<HTMLUListElement>();
@@ -78,7 +83,16 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
     };
     if (inputProps.onBlur) inputProps.onBlur(fakeEvent);
     const exist = options.some((opt) => opt.description.toLowerCase() === value.toLowerCase());
-    if (!exist) setValue('');
+    if (!exist) {
+      setValue('');
+      const event:any = {
+        target: {
+          name: inputProps.name,
+          value: '',
+        },
+      };
+      inputProps.onChange(event);
+    }
   };
 
   useEffect(() => {
@@ -87,8 +101,14 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
     }
   }, [triggerValidation, showDropdown]);
 
+  useEffect(() => {
+    const selectedOption = options.find((opt) => opt.value === inputProps.value);
+    setValue(selectedOption?.description || '');
+  }, [inputProps.value, options]);
+
   const handleFocus = (event: React.FocusEvent<HTMLInputElement>): void => {
     setInputFocused(true);
+    setIsEnterFocus(true);
     if (!showDropdown) setShowDropdown(true);
     if (!triggerValidation) setTriggerValidation(true);
     if (!inputProps.readOnly) event.target.readOnly = false;
@@ -102,6 +122,7 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
+    setIsEnterFocus(false);
     if (!showDropdown) {
       setShowDropdown(true);
       setTriggerValidation(true);
@@ -157,33 +178,35 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
   };
 
   const renderOptions = () => {
-    const filtered = options
-      .filter((opt) => opt.description.toLowerCase().includes(value.toLowerCase())
-      && opt.value !== inputProps.value)
-      .slice(0, 9)
-      .map((opt, optIndex) => (
-        <li key={opt.value.toString()}>
-          <button
-            tabIndex={-1}
-            onClick={() => {
-              changeOption(opt);
-            }}
-            type="button"
-            onMouseEnter={() => { handleMouseEnterOption(optIndex); }}
-            onKeyDown={(event) => { handleKeyDownOption(event, event.key, optIndex); }}
-          >
-            {opt.description}
-          </button>
-        </li>
-      ));
-    if (filtered.length === 0) {
+    let filtered = isEnterFocus ? options : options
+      .filter((opt) => opt.description.toLowerCase()?.includes(value.toLowerCase())
+        && opt.value !== inputProps.value);
+    if (limitShowed) {
+      filtered = filtered.slice(0, 9);
+    }
+    const resultFilter = filtered.map((opt, optIndex) => (
+      <li key={opt.value.toString()}>
+        <button
+          tabIndex={-1}
+          onClick={() => {
+            changeOption(opt);
+          }}
+          type="button"
+          onMouseEnter={() => { handleMouseEnterOption(optIndex); }}
+          onKeyDown={(event) => { handleKeyDownOption(event, event.key, optIndex); }}
+        >
+          {opt.description}
+        </button>
+      </li>
+    ));
+    if (resultFilter.length === 0) {
       return (
         <LiNotFoundWrap>
           Nenhum resultado correspondente
         </LiNotFoundWrap>
       );
     }
-    return filtered;
+    return resultFilter;
   };
 
   return (
@@ -191,25 +214,12 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
       className={['autocomplet', className].join(' ')}
       data-testid={`${inputProps.name}-wrap`}
       data-status={getDataStatus()}
+      data-value={value}
       variant={theme.colors[variant]}
       fullWidth={fullWidth}
       inputHeight={inputRef?.current?.offsetHeight}
       onBlur={handleBlurWrap}
     >
-      <input
-        {...inputProps}
-        onChange={handleChange}
-        value={value}
-        title={error}
-        data-testid={inputProps.name}
-        readOnly
-        ref={inputRef}
-        placeholder=" "
-        onFocus={handleFocus}
-        onBlur={handleBlur}
-        className={inputProps.disabled ? 'disabled' : null}
-        autoComplete="off"
-      />
       {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
       <label
         data-testid={`${inputProps.name}-label`}
@@ -218,14 +228,32 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
       >
         {label}
       </label>
+      <input
+        {...inputProps}
+        onChange={handleChange}
+        value={value}
+        title={error}
+        data-testid={inputProps.name}
+        readOnly
+        ref={inputRef}
+        placeholder={placeholder}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
+        className={inputProps.disabled ? 'disabled' : null}
+        autoComplete="off"
+      />
       { showDropdown && (
-        <ul
-          ref={menuRef}
-        >
-          {
-           renderOptions()
-          }
-        </ul>
+        <div className="content-options">
+          {/* <Scrollbar> */}
+          <ul
+            ref={menuRef}
+          >
+            {
+              renderOptions()
+            }
+          </ul>
+          {/* </Scrollbar> */}
+        </div>
       )}
       { !hideHelper && (
         <HelperText

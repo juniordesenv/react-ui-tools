@@ -52,8 +52,17 @@ const TextArea: React.FC<InputProps> = ({
       data-testid={`${inputProps.name}-wrap`}
       data-status={getDataStatus()}
       variant={theme.colors[variant]}
+      data-value={inputProps.value}
       fullWidth={fullWidth}
     >
+      {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+      <label
+        data-testid={`${inputProps.name}-label`}
+        title={error}
+        className={inputProps.disabled ? 'disabled' : null}
+      >
+        {label}
+      </label>
       <textarea
         {...inputProps}
         title={error}
@@ -64,14 +73,6 @@ const TextArea: React.FC<InputProps> = ({
         onFocus={handleFocus}
         className={inputProps.disabled ? 'disabled' : null}
       />
-      {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-      <label
-        data-testid={`${inputProps.name}-label`}
-        title={error}
-        className={inputProps.disabled ? 'disabled' : null}
-      >
-        {label}
-      </label>
       { !hideHelper && (
         <HelperText
           dataStatus={getDataStatus()}

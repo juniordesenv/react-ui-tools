@@ -10,7 +10,7 @@ const CheckboxWrap = styled.div`${Styles.checkboxGroupWrap}`;
 
 type CheckboxGroupOptions = {
   value: any;
-  description: string;
+  description: string | React.ReactNode;
   secondaryLabel?: string;
 };
 
@@ -57,7 +57,7 @@ const CheckboxGroup: React.FC<CheckboxGroupProps> = ({
         ],
       },
     };
-    if (value.includes(valueChange)) {
+    if (value?.includes(valueChange)) {
       event
         .target
         .value
@@ -90,7 +90,7 @@ const CheckboxGroup: React.FC<CheckboxGroupProps> = ({
               noContent={noContent}
               key={opt.value}
               label={opt.description}
-              value={value.includes(opt.value)}
+              value={value?.includes(opt.value)}
               secondaryLabel={opt.secondaryLabel}
               name={name}
               hideHelper

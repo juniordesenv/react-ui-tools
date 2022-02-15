@@ -10,15 +10,16 @@ const ModalTitleWrap = styled.div`${Styles.modalTitleWrap}`;
 type ModalProps = {
   children: React.ReactNode;
   handleClose: () => void;
+  className?: string;
 };
 
-const ModalTitle: React.FC<ModalProps> = ({ children, handleClose }: ModalProps) => (
-  <ModalTitleWrap>
+const ModalTitle: React.FC<ModalProps> = ({ children, handleClose, className }: ModalProps) => (
+  <ModalTitleWrap className={['modal-title', className].join(' ')}>
     {children}
     <Button
       onClick={handleClose}
       className="close"
-      variant="text"
+      variant="ghost"
     >
       <FaTimes />
     </Button>

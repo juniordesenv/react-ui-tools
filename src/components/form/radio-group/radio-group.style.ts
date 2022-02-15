@@ -9,10 +9,21 @@ import {
 
 interface RadioWrapGroupProps {
   display: 'inline' | 'block' | 'inline-block' | 'flex' | 'grid';
+  inlineLabel?: boolean;
 }
 
-const radioGroupWrap = ({ display = 'inline-block' }: RadioWrapGroupProps) => css`
-  .title {
+const radioGroupWrap = ({ display = 'inline-block', inlineLabel }: RadioWrapGroupProps) => css`
+  ${inlineLabel && `
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    
+    label {
+      margin-right: 16px;
+    } 
+  `}
+  
+  label {
     margin-bottom: 8px;
   }
   
@@ -39,7 +50,9 @@ interface RadioWrapProps {
   variant: VariantColors;
 }
 
-const radioWrap = ({ theme, variant, noContent }: RadioWrapProps) => css`
+const radioWrap = ({
+  theme, variant, noContent,
+}: RadioWrapProps) => css`
   position: relative;
   display: inline-block;
   

@@ -12,7 +12,7 @@ export type TypographyProps = {
   children: React.ReactNode;
   display?: 'inline' | 'block' | 'none';
   variant?: VariantColorsType;
-  variantLevel?: VariantColorsLevel,
+  scale?: VariantColorsLevel,
   className?: string;
   fontWeight?: 'normal' | '400' | '500' | '600' | '700' | 'bold';
   'data-testid'?: string;
@@ -21,48 +21,30 @@ export type TypographyProps = {
 const Typography: React.FC<TypographyProps> = ({
   as = 'p',
   children,
-  variant,
+  variant = 'typography',
   display,
   fontWeight = 'normal',
   className,
-  variantLevel = 'main',
+  scale = 'main',
   ...props
 }: TypographyProps) => {
   // eslint-disable-next-line react/destructuring-assignment
   const dataTestId = props['data-testid'];
   const theme = useTheme() as Theme;
 
-  const renderTag = () => {
-    switch (as) {
-      case 'h1':
-        return (<h1 data-testid={dataTestId}>{children}</h1>);
-      case 'h2':
-        return (<h2 data-testid={dataTestId}>{children}</h2>);
-      case 'h3':
-        return (<h3 data-testid={dataTestId}>{children}</h3>);
-      case 'h4':
-        return (<h4 data-testid={dataTestId}>{children}</h4>);
-      case 'h5':
-        return (<h5 data-testid={dataTestId}>{children}</h5>);
-      case 'h6':
-        return (<h6 data-testid={dataTestId}>{children}</h6>);
-      case 'small':
-        return (<small data-testid={dataTestId}>{children}</small>);
-      case 'p':
-      default:
-        return (<p data-testid={dataTestId}>{children}</p>);
-    }
-  };
-
+  // @ts-ignore
   return (
     <TypographyWrap
+      // @ts-ignore
+      as={as}
       className={['typography', `typography-${as}`, className].join(' ')}
-      variantLevel={variantLevel}
+      scale={scale}
       display={display}
       variant={theme.colors[variant]}
       fontWeight={fontWeight}
+      data-testid={dataTestId}
     >
-      { renderTag() }
+      { children }
     </TypographyWrap>
   );
 };

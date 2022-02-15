@@ -23,11 +23,6 @@ const inputWrap = ({
   
   input {
     ${inputStyle({ theme, variant })}
-    
-    &:not(:placeholder-shown) + label {
-      color: ${theme.colors.primary.main}; 
-      transform: scale(0.9) translateY(-20px);
-    }
   }
   
   
@@ -42,23 +37,30 @@ const inputWrap = ({
       ${invalidStyle({ theme })}
     }
   }
+
+  &:focus-within, :not([data-value='']) {
+    label {
+      ${labelFocusInStyle({ variant })}
+    }
+  }
   
-  &:focus-within {
-      label {
-        ${labelFocusInStyle({ variant })}
-      }
+  .content-options {
+    margin: 0;
+    padding: 8px 0;
+    box-shadow: ${theme.card.shadow};
+    background-color: white;
+    height: max-content;
+    max-height: 300px;
+    position: absolute;
+    overflow-y: auto;
+    top: ${inputHeight}px;
+    left: 0;
+    width: 100%;
+    z-index: 4;
   }
   
   ul {
-      position: absolute;
-      top: ${inputHeight}px;
-      left: 0;
-      width: 100%;
-      padding: 8px 0;
-      box-shadow: ${theme.card.shadow};
-      background-color: white;
       list-style: none;
-      z-index: 2;
       
       li {
         button {

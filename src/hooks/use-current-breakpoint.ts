@@ -16,9 +16,11 @@ const getBreakpoint = (theme: Theme) => {
 
 export const useCurrentBreakpoint = () => {
   const theme = useTheme() as Theme;
-  const [breakpoint, setBreakpoint] = useState(getBreakpoint(theme));
+  const [breakpoint, setBreakpoint] = useState('lg');
 
   useEffect(() => {
+    setBreakpoint(getBreakpoint(theme));
+
     function handleResize() {
       setBreakpoint(getBreakpoint(theme));
     }

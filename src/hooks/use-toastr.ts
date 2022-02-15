@@ -1,12 +1,12 @@
 import { useContext } from 'react';
-import { ApiContext } from '@/contexts';
+import { ToastrContext } from '@/contexts';
 
 export const useToastr = () => {
   const {
     listMessagesToastr,
     addMessageToastr,
     removeMessageToastr,
-  } = useContext(ApiContext);
+  } = useContext(ToastrContext);
   return {
     listMessagesToastr,
     addMessageToastr,

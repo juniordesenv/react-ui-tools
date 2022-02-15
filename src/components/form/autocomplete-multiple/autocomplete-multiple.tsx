@@ -225,6 +225,14 @@ const AutocompleteMultiple: React.FC<AutocompleteMultipleProps> = ({
       onBlur={handleBlurWrap}
       hasValue={inputProps.value.length > 0}
     >
+      {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+      <label
+        data-testid={`${inputProps.name}-label`}
+        title={error}
+        className={inputProps.disabled ? 'disabled' : null}
+      >
+        {label}
+      </label>
       {/* eslint-disable-next-line max-len */}
       {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
       <div
@@ -262,14 +270,6 @@ const AutocompleteMultiple: React.FC<AutocompleteMultipleProps> = ({
           autoComplete="off"
           data-testid={`${inputProps.name}-autocomplete`}
         />
-        {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-        <label
-          data-testid={`${inputProps.name}-label`}
-          title={error}
-          className={inputProps.disabled ? 'disabled' : null}
-        >
-          {label}
-        </label>
         { showDropdown && (
           <ul
             ref={menuRef}

@@ -8,13 +8,15 @@ const TableWrap = styled(Scrollbar)`${Styles.tableWrap}`;
 
 export type TableProps = React.HTMLProps<HTMLTableElement> & {
   children: React.ReactNode;
+  className?: string;
 };
 
 const Table: React.FC<TableProps> = ({
   children,
+  className,
   ...props
 }: TableProps) => (
-  <TableWrap>
+  <TableWrap className={className}>
     <table
       {...props}
       cellSpacing={props.cellSpacing || '0'}

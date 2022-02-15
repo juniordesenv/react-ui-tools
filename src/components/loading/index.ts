@@ -1,6 +1,5 @@
-import DropdownStyles from './dropdown.style';
+import LoadingStyles from './loading.style';
 
-export * from './dropdown';
-export * from './dropdown-item';
+export * from './loading';
 
-export { DropdownStyles };
+export { LoadingStyles };

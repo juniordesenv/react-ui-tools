@@ -23,9 +23,9 @@ HTMLButtonElement
 
 const ButtonIcon: React.FC<ButtonIconProps> = ({
   children,
-  color,
-  variant,
-  scale,
+  color = 'primary',
+  variant = 'contained',
+  scale = 'main',
   type = 'button',
   fullWidth,
   size = 16,

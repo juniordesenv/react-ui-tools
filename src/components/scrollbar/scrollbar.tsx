@@ -13,7 +13,7 @@ type ScrollbarProps = {
 };
 
 const Scrollbar: React.FC<ScrollbarProps> = ({ children, className }: ScrollbarProps) => (
-  <ScrollbarWrap className={className}>
+  <ScrollbarWrap className={['custom-scrollbar', className].join(' ')}>
     {children}
   </ScrollbarWrap>
 );

@@ -1,7 +1,5 @@
-import Styles from './chip.style';
+import ConfirmationStyles from './confirmation.style';
 
-export * from './chip';
+export * from './confirmation';
 
-const ChipStyles = Styles;
-
-export { ChipStyles };
+export { ConfirmationStyles };

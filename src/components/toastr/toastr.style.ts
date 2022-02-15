@@ -2,7 +2,7 @@ import { css } from '@emotion/core';
 import { Theme, VariantColorsType } from '@/styles/theme';
 
 const toastrWrap = css`
-  position: absolute;
+  position: fixed;
   display: flex;
   flex-direction: column;
   z-index: 1040;

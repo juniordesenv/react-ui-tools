@@ -13,7 +13,7 @@ HTMLTableHeaderCellElement
   isSorted?: boolean;
   orderSort?: 'asc' | 'desc';
   className?: string;
-  children: React.ReactNode;
+  children?: React.ReactNode;
 };
 
 const Th: React.FC<ThProps> = ({

@@ -1,5 +1,5 @@
-import ToastrStyles from './toastr.style';
+import TooltipStyles from './tooltip.style';
 
-export * from './toastr';
+export * from './tooltip';
 
-export { ToastrStyles };
+export { TooltipStyles };

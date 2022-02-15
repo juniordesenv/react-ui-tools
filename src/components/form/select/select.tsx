@@ -13,6 +13,7 @@ const SelectWrap = styled.div`${Styles.selectWrap}`;
 type SelectOptions = {
   value: any;
   description: React.ReactNode | string;
+  disabled?: boolean;
 };
 
 export type SelectProps = {
@@ -173,12 +174,13 @@ const Select: React.FC<SelectProps> = ({
                 <li key={opt.value.toString()}>
                   <button
                     onClick={() => {
-                      changeOption(opt.value);
+                      if (!opt.disabled) changeOption(opt.value);
                     }}
                     data-testid={`${inputProps.name}-opts`}
                     data-value={opt.value}
                     tabIndex={0}
                     type="button"
+                    disabled={opt.disabled}
                     onMouseEnter={() => { handleMouseEnterOption(optIndex); }}
                     onKeyDown={(event) => { handleKeyDownOption(event, event.key, optIndex); }}
                   >

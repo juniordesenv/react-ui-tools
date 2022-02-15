@@ -163,7 +163,7 @@ const InputFile: React.FC<InputFileProps> = ({
         <Typography
           as="h6"
           variant="gray"
-          variantLevel="dark"
+          scale="dark"
         >
           { isDragActive ? textDragActive : textDrag }
         </Typography>

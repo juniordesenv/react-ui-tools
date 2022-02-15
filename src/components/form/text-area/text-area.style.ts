@@ -20,11 +20,6 @@ const inputWrap = ({ theme, variant, fullWidth }: InputWrapProps) => css`
   
   textarea {
     ${inputStyle({ theme, variant })}
-    
-    &:not(:placeholder-shown) + label {
-      color: ${theme.colors.primary.main}; 
-      transform: scale(0.9) translateY(-20px);
-    }
   }
   
   
@@ -39,11 +34,11 @@ const inputWrap = ({ theme, variant, fullWidth }: InputWrapProps) => css`
       ${invalidStyle({ theme })}
     }
   }
-  
-  &:focus-within {
-      label {
-        ${labelFocusInStyle({ variant })}
-      }
+
+  &:focus-within, :not([data-value='']) {
+    label {
+      ${labelFocusInStyle({ variant })}
+    }
   }
 `;
 

@@ -5,8 +5,9 @@ import Styles from './helper-text.style';
 
 const HelperTextWrap = styled.span`${Styles.helperTextWrap}`;
 
-type HelperTextProps = {
+export type HelperTextProps = {
   touched?: boolean;
+  focused?: boolean;
   error?: string;
   textHelper?: string;
   dataStatus?: 'valid' | 'invalid' | null;
@@ -15,6 +16,7 @@ type HelperTextProps = {
 
 const HelperText: React.FC<HelperTextProps> = ({
   touched,
+  focused,
   error,
   textHelper,
   dataStatus,
@@ -23,7 +25,7 @@ const HelperText: React.FC<HelperTextProps> = ({
   <HelperTextWrap
     data-status={dataStatus}
   >
-    {touched && error && !disabled ? error : textHelper}
+    {touched && error && !disabled && !focused ? error : textHelper}
   </HelperTextWrap>
 );
 

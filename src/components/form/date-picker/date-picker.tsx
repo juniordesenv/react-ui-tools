@@ -25,6 +25,7 @@ HTMLInputElement
   textHelper?: string;
   hideHelper?: boolean;
   fullWidth?: boolean;
+  placeholder?: string;
   variant?: VariantColorsType;
 };
 
@@ -37,6 +38,7 @@ const DatePicker: React.FC<DatePickerProps> = ({
   textHelper,
   hideHelper,
   variant = 'primary',
+  placeholder,
   ...inputProps
 }: DatePickerProps) => {
   const theme = useTheme() as Theme;
@@ -46,7 +48,7 @@ const DatePicker: React.FC<DatePickerProps> = ({
   const [showCalendar, setShowCalendar] = useState<boolean>(false);
 
   useOutsideClick(contentRef, (element: any) => {
-    if (element?.target?.className?.includes('calendar__year-view__months__month')) return;
+    if (element?.target?.className?.includes && element?.target?.className?.includes('calendar__year-view__months__month')) return;
     setShowCalendar(false);
   });
 
@@ -97,21 +99,11 @@ const DatePicker: React.FC<DatePickerProps> = ({
       data-testid={`${inputProps.name}-wrap`}
       data-status={getDataStatus()}
       variant={theme.colors[variant]}
+      data-value={inputProps.value}
       fullWidth={fullWidth}
       showCalendar={showCalendar}
       ref={contentRef}
     >
-      <input
-        {...inputProps}
-        title={error}
-        data-testid={inputProps.name}
-        readOnly
-        ref={inputRef}
-        placeholder=" "
-        onFocus={handleFocus}
-        className={inputProps.disabled ? 'disabled' : null}
-        autoComplete="off"
-      />
       {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
       <label
         data-testid={`${inputProps.name}-label`}
@@ -120,6 +112,17 @@ const DatePicker: React.FC<DatePickerProps> = ({
       >
         {label}
       </label>
+      <input
+        {...inputProps}
+        title={error}
+        data-testid={inputProps.name}
+        readOnly
+        ref={inputRef}
+        placeholder={placeholder}
+        onFocus={handleFocus}
+        className={inputProps.disabled ? 'disabled' : null}
+        autoComplete="off"
+      />
       <ButtonIcon
         type="button"
         tabIndex={-1}

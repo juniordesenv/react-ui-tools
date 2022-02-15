@@ -85,7 +85,7 @@ const inputWrap = ({
       box-shadow: ${theme.card.shadow};
       background-color: white;
       list-style: none;
-      z-index: 2;
+      z-index: 4;
       
       li {
         button {

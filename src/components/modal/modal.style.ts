@@ -73,7 +73,7 @@ const modalActionWrap = css`
   display: flex;
   justify-content: flex-end;
   border-top: 1px solid rgba(0, 0, 0, 0.08);
-  padding: 16px 0;
+  padding: 16px;
   
   > * {
     margin: 0 4px;

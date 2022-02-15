@@ -2,86 +2,86 @@ import { css } from '@emotion/core';
 import { Theme, VariantColors, VariantColorsLevel } from '@/styles/theme';
 import { minQ } from '@/helpers/mq';
 
+type FontProps = {
+  fontWeight: string;
+};
+
+const h1 = ({ fontWeight }: FontProps) => css`
+  font-style: normal;
+  font-weight: ${fontWeight};
+  font-size: 6rem;
+`;
+
+const h2 = ({ fontWeight }: FontProps) => css`
+  font-style: normal;
+  font-weight: ${fontWeight};
+  font-size: 3.75rem;
+`;
+
+const h3 = ({ fontWeight }: FontProps) => css`
+  font-style: normal;
+  font-weight: ${fontWeight};
+  font-size: 3rem;
+`;
+
+const h4 = ({ fontWeight }: FontProps) => css`
+  font-style: normal;
+  font-weight: ${fontWeight};
+  font-size: 2.125rem;
+`;
+
+const h5 = ({ fontWeight }: FontProps) => css`
+  font-style: normal;
+  font-weight: ${fontWeight};
+  font-size: 1.5rem;
+`;
+
+const h6 = ({ fontWeight }: FontProps) => css`
+  font-style: normal;
+  font-weight: ${fontWeight};
+  font-size: 1.25rem;
+`;
+
+const p = ({ fontWeight }: FontProps) => css`
+  font-style: normal;
+  font-weight: ${fontWeight};
+  font-size: 1rem;
+`;
+
+const small = ({ fontWeight }: FontProps) => css` 
+  font-style: normal;
+  font-weight: ${fontWeight};
+  font-size: 0.75rem;
+`;
+
 type Props = {
   theme?: Theme;
   display: 'inline' | 'block' | 'none';
   variant: VariantColors;
-  variantLevel: VariantColorsLevel;
+  scale: VariantColorsLevel;
   contrastColor?: boolean,
   fontWeight: 'normal' | '400' | '500' | '600' | '700' | 'bold';
+  as: string;
 };
 
 const typographyWrap = ({
-  theme,
   display,
   variant,
-  variantLevel,
+  scale,
   fontWeight,
+  as,
 }: Props) => css`
-  > * {
-    ${display ? `display: ${display}` : ''};
-    color: ${variant[variantLevel]};
-  }
+  ${display ? `display: ${display}` : ''};
+  color: ${variant[scale]};
   
-  h1 {
-    font-style: normal;
-    font-weight: ${fontWeight};
-    font-size: 67px;
-  }
-  
-  h2 {
-    font-style: normal;
-    font-weight: ${fontWeight};
-    font-size: 50px;
-  }
-  
-  h3 {
-    font-style: normal;
-    font-weight: ${fontWeight};
-    font-size: 38px;
-  }
-  
-  h4 {
-    font-style: normal;
-    font-weight: ${fontWeight};
-    font-size: 28px;
-  }
-  
-  h5 {
-    font-style: normal;
-    font-weight: ${fontWeight};
-    font-size: 21px;
-  }
-  
-  h6 {
-    font-style: normal;
-    font-weight: ${fontWeight};
-    font-size: 18px;
-  }
-  
-  p {
-    font-style: normal;
-    font-weight: ${fontWeight};
-    font-size: 12px;
-  
-    ${minQ(theme).md} {
-      font-style: normal;
-      font-weight: ${fontWeight};
-      font-size: 16px;
-    }
-  }
-  
-  small {
-    font-style: normal;
-    font-weight: ${fontWeight};
-    font-size: 8px;
-  
-    ${minQ(theme).md} {
-      font-style: normal;
-      font-weight: ${fontWeight};
-      font-size: 12px;
-    }
-  }
+  ${as === 'h1' && h1({ fontWeight })}
+  ${as === 'h2' && h2({ fontWeight })}
+  ${as === 'h3' && h3({ fontWeight })}
+  ${as === 'h4' && h4({ fontWeight })}
+  ${as === 'h5' && h5({ fontWeight })}
+  ${as === 'h6' && h6({ fontWeight })}
+  ${as === 'small' && small({ fontWeight })}
+  ${as === 'p' && p({ fontWeight })}
 `;
 
 export default {

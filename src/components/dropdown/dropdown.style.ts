@@ -32,7 +32,7 @@ const dropdownItemWrap = ({
     white-space: nowrap;
     text-align: left;
     
-    > button, > * {
+    > button, > a, > div {
       padding: 8px;
       display: inline-block;
       width: 100%;

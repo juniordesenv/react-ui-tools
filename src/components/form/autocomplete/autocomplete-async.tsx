@@ -1,11 +1,12 @@
-import { Scrollbar } from '@/components';
 import React, { useEffect, useRef, useState } from 'react';
 
 import styled from '@emotion/styled';
 import { HelperText } from '@/components/form/helper-text/helper-text';
 import { useTheme } from 'emotion-theming';
 import { Theme, VariantColorsType } from '@/styles/theme';
-import { useEscKeyUp, useOutsideClick, useTabKeyUp } from '@/hooks';
+import {
+  useDebounce, useEscKeyUp, useOutsideClick, useTabKeyUp,
+} from '@/hooks';
 import Styles from './autocomplete.style';
 
 const InputWrap = styled.div`${Styles.inputWrap}`;
@@ -16,7 +17,7 @@ type Option = {
   description: string;
 };
 
-export type AutocompleteProps = React.DetailedHTMLProps<
+export type AutocompleteAsyncProps = React.DetailedHTMLProps<
 React.InputHTMLAttributes<HTMLInputElement>,
 HTMLInputElement
 > & {
@@ -30,9 +31,10 @@ HTMLInputElement
   variant?: VariantColorsType;
   options: Option[];
   limitShowed?: number;
+  onChangeSearch: (opt: { search: string }) => Promise<void>
 };
 
-const Autocomplete: React.FC<AutocompleteProps> = ({
+const AutocompleteAsync: React.FC<AutocompleteAsyncProps> = ({
   error,
   touched,
   label,
@@ -44,10 +46,11 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
   variant = 'primary',
   options,
   limitShowed,
+  onChangeSearch,
   ...inputProps
-}: AutocompleteProps) => {
+}: AutocompleteAsyncProps) => {
   const theme = useTheme() as Theme;
-  const [value, setValue] = useState('');
+  const [debouncedSearch, search, setSearch] = useDebounce('', 500);
   const [inputFocused, setInputFocused] = useState<boolean>(false);
   const [showDropdown, setShowDropdown] = useState<boolean>(false);
   const [isEnterFocus, setIsEnterFocus] = useState<boolean>(false);
@@ -75,6 +78,12 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
     }
   });
 
+  useEffect(() => {
+    onChangeSearch({
+      search,
+    });
+  }, [debouncedSearch]);
+
   const validOptions = () => {
     const fakeEvent: any = {
       target: {
@@ -82,9 +91,9 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
       },
     };
     if (inputProps.onBlur) inputProps.onBlur(fakeEvent);
-    const exist = options.some((opt) => opt.description.toLowerCase() === value.toLowerCase());
+    const exist = options.some((opt) => opt.description.toLowerCase() === search.toLowerCase());
     if (!exist) {
-      setValue('');
+      setSearch('');
       const event:any = {
         target: {
           name: inputProps.name,
@@ -102,8 +111,10 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
   }, [triggerValidation, showDropdown]);
 
   useEffect(() => {
-    const selectedOption = options.find((opt) => opt.value === inputProps.value);
-    setValue(selectedOption?.description || '');
+    if (!inputFocused) {
+      const selectedOption = options.find((opt) => opt.value === inputProps.value);
+      setSearch(selectedOption?.description || '');
+    }
   }, [inputProps.value, options]);
 
   const handleFocus = (event: React.FocusEvent<HTMLInputElement>): void => {
@@ -121,7 +132,7 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(event.target.value);
+    setSearch(event.target.value);
     setIsEnterFocus(false);
     if (!showDropdown) {
       setShowDropdown(true);
@@ -146,7 +157,7 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
       },
     };
     inputProps.onChange(event);
-    setValue(opt.description);
+    setSearch(opt.description);
     setShowDropdown(false);
   };
 
@@ -179,7 +190,7 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
 
   const renderOptions = () => {
     let filtered = isEnterFocus ? options : options
-      .filter((opt) => opt.description.toLowerCase()?.includes(value.toLowerCase())
+      .filter((opt) => opt.description.toLowerCase()?.includes(search.toLowerCase())
         && opt.value !== inputProps.value);
     if (limitShowed) {
       filtered = filtered.slice(0, 9);
@@ -214,7 +225,7 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
       className={['autocomplet', className].join(' ')}
       data-testid={`${inputProps.name}-wrap`}
       data-status={getDataStatus()}
-      data-value={value}
+      data-value={search}
       variant={theme.colors[variant]}
       fullWidth={fullWidth}
       inputHeight={inputRef?.current?.offsetHeight}
@@ -231,7 +242,7 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
       <input
         {...inputProps}
         onChange={handleChange}
-        value={value}
+        value={search}
         title={error}
         data-testid={inputProps.name}
         readOnly
@@ -268,4 +279,4 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
   );
 };
 
-export { Autocomplete };
+export { AutocompleteAsync };

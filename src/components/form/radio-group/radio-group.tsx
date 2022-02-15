@@ -19,6 +19,7 @@ type RadioGroupProps = {
   touched?: boolean;
   readOnly?: boolean;
   disabled?: boolean;
+  inlineLabel?: boolean;
   value: any;
   name: string;
   className?: string;
@@ -47,6 +48,7 @@ const RadioGroup: React.FC<RadioGroupProps> = ({
   hideHelper,
   disabled,
   variant,
+  inlineLabel,
   ...inputProps
 }: RadioGroupProps) => {
   const handleChange = (valueChange: any) => {
@@ -66,12 +68,13 @@ const RadioGroup: React.FC<RadioGroupProps> = ({
 
   return (
     <RadioWrap
-      className={className}
+      className={['radio-group', className].join(' ')}
       display={display}
+      inlineLabel={inlineLabel}
     >
-      <div className="title">
+      <label>
         {title}
-      </div>
+      </label>
       <div className="options">
         {
           options.map((opt) => (
@@ -83,7 +86,7 @@ const RadioGroup: React.FC<RadioGroupProps> = ({
               noContent={noContent}
               key={opt.value}
               label={opt.description}
-              value={value.includes(opt.value)}
+              value={value?.includes(opt.value)}
               name={name}
               secondaryLabel={opt.secondaryLabel}
               forceState={getDataStatus()}
