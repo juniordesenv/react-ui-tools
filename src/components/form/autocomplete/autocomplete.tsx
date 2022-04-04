@@ -1,6 +1,4 @@
-import { Scrollbar } from '@/components';
 import React, { useEffect, useRef, useState } from 'react';
-
 import styled from '@emotion/styled';
 import { HelperText } from '@/components/form/helper-text/helper-text';
 import { useTheme } from 'emotion-theming';
@@ -179,7 +177,7 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
 
   const renderOptions = () => {
     const terms = value.split(' ');
-    let filtered = options.filter((opt) => {
+    let filtered = isEnterFocus ? options : options.filter((opt) => {
       return terms.reduce((result, term) => {
         return result && opt.description.toLowerCase()?.includes(term.toLowerCase())
           && opt.value !== inputProps.value;
