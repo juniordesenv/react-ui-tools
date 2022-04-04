@@ -179,7 +179,7 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
 
   const renderOptions = () => {
     const terms = value.split(' ');
-    let filtered = isEnterFocus ? options : options.filter((opt) => {
+    let filtered = options.filter((opt) => {
       return terms.reduce((result, term) => {
         return result && opt.description.toLowerCase()?.includes(term.toLowerCase())
           && opt.value !== inputProps.value;
