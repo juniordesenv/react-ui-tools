@@ -178,9 +178,13 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
   };
 
   const renderOptions = () => {
-    let filtered = isEnterFocus ? options : options
-      .filter((opt) => opt.description.toLowerCase()?.includes(value.toLowerCase())
-        && opt.value !== inputProps.value);
+    const terms = value.split(' ');
+    let filtered = isEnterFocus ? options : options.filter((opt) => {
+      return terms.reduce((result, term) => {
+        return result && opt.description.toLowerCase()?.includes(term.toLowerCase())
+          && opt.value !== inputProps.value;
+      }, true);
+    });
     if (limitShowed) {
       filtered = filtered.slice(0, 9);
     }

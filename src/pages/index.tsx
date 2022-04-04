@@ -34,23 +34,11 @@ const HomePage = () => {
         label="Teste"
         {...inputs.description}
         options={[
-          { value: '1', description: '1' },
-          { value: '2', description: '2' },
-          { value: '3', description: '3' },
-          { value: '4', description: '4' },
-          { value: '5', description: '5' },
-          { value: '6', description: '6' },
-          { value: '7', description: '7' },
-          { value: '8', description: '8' },
-          { value: '9', description: '9' },
-          { value: '10', description: '10' },
-          { value: '11', description: '11' },
-          { value: '12', description: '12' },
-          { value: '13', description: '13' },
-          { value: '14', description: '14' },
-          { value: '15', description: '15' },
-          { value: '16', description: '16' },
-          { value: '17', description: '17' },
+          { value: '1', description: 'meu novo ventilador de teto' },
+          { value: '2', description: 'meu novo ventilador' },
+          { value: '3', description: 'meu novo teto' },
+          { value: '4', description: 'minha nova televisão' },
+          { value: '5', description: 'meu nova televisão' },
         ]}
       />
     </MainWrap>
