@@ -1,5 +1,3 @@
-import IMask from 'imask';
-
 const phone = {
   mask: [{
     mask: '(00) 0000-0000',
@@ -36,6 +34,10 @@ const cpf = {
 
 const cnpj = {
   mask: '00.000.000/0000-00',
+};
+
+const cnj = {
+  mask: '0000000-00.0000.0.00.0000',
 };
 
 const cpfCnpj = {
@@ -91,6 +93,7 @@ export default {
   phone,
   cpf,
   cnpj,
+  cnj,
   cpfCnpj,
   money,
   postalCode,

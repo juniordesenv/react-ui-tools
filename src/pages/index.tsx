@@ -1,7 +1,6 @@
-import { Autocomplete } from '@/components';
+import { Autocomplete, Input } from '@/components';
 import { useForm } from '@/hooks';
 import styled from '@emotion/styled';
-import { useEffect, useState } from 'react';
 
 const MainWrap = styled.div`
   display: flex;
@@ -21,6 +20,7 @@ const MainWrap = styled.div`
 `;
 
 const HomePage = () => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { inputs, setValues } = useForm<{ description: string }>({
     initialValues: { description: '' },
     onSubmit: (values) => {
@@ -40,6 +40,11 @@ const HomePage = () => {
           { value: '4', description: 'minha nova televisão' },
           { value: '5', description: 'meu nova televisão' },
         ]}
+      />
+      <Input
+        label="teste2"
+        mask="cnj"
+        {...inputs.description}
       />
     </MainWrap>
   );

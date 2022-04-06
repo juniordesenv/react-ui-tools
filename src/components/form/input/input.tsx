@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { useTheme } from 'emotion-theming';
 import styled from '@emotion/styled';
@@ -12,7 +12,7 @@ import Mask from './mask';
 
 const InputWrap = styled.div`${Styles.inputWrap}`;
 
-export type MasksTypes = 'phone' | 'cpf' | 'cnpj' | 'cpfCnpj' | 'money' | 'postalCode' | 'creditCard' | 'expiryCard' | 'phoneDDI';
+export type MasksTypes = 'phone' | 'cpf' | 'cnpj' | 'cnj' | 'cpfCnpj' | 'money' | 'postalCode' | 'creditCard' | 'expiryCard' | 'phoneDDI';
 
 export type InputProps = React.DetailedHTMLProps<
 React.InputHTMLAttributes<HTMLInputElement>,
