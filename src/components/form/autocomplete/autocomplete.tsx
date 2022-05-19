@@ -1,11 +1,10 @@
-import { Scrollbar } from '@/components';
 import React, { useEffect, useRef, useState } from 'react';
-
 import styled from '@emotion/styled';
 import { HelperText } from '@/components/form/helper-text/helper-text';
 import { useTheme } from 'emotion-theming';
 import { Theme, VariantColorsType } from '@/styles/theme';
 import { useEscKeyUp, useOutsideClick, useTabKeyUp } from '@/hooks';
+import { removeDiacritics } from '@/helpers';
 import Styles from './autocomplete.style';
 
 const InputWrap = styled.div`${Styles.inputWrap}`;
@@ -179,12 +178,10 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
 
   const renderOptions = () => {
     const terms = value.split(' ');
-    let filtered = options.filter((opt) => {
-      return terms.reduce((result, term) => {
-        return result && opt.description.toLowerCase()?.includes(term.toLowerCase())
-          && opt.value !== inputProps.value;
-      }, true);
-    });
+    let filtered = isEnterFocus ? options : options.filter((opt) => terms
+      .reduce((previousResult, searchTerm) => previousResult && removeDiacritics(opt.description)
+        .toLowerCase()?.includes(removeDiacritics(searchTerm)
+          .toLowerCase()) && opt.value !== inputProps.value, true));
     if (limitShowed) {
       filtered = filtered.slice(0, 9);
     }
