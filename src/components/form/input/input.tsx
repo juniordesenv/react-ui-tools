@@ -49,7 +49,7 @@ const Input: React.FC<InputProps> = ({
   console.log(ref.current, 'ref');
 
   useEffect(() => {
-    maskRef.current.updateValue();
+    maskRef?.current?.updateValue();
     if (maskRef && maskRef.current && maskRef.current.updateValue) {
       if (maskRef.current.value !== inputProps.value && !focused) {
         const maskPipe = IMask.createPipe(Mask[mask] as any);
@@ -61,17 +61,18 @@ const Input: React.FC<InputProps> = ({
         } as any);
       }
     }
+    maskRef?.current?.updateValue();
   }, [inputProps.value]);
 
   const handleFocus = (event: React.FocusEvent<HTMLInputElement>): void => {
-    maskRef.current.updateValue();
+    maskRef?.current?.updateValue();
     setFocused(true);
     if (!inputProps.readOnly) event.target.readOnly = false;
     if (inputProps.onFocus) Promise.resolve(inputProps.onFocus(event)).then();
   };
 
   const handleBlur = (event: React.FocusEvent<HTMLInputElement>): void => {
-    maskRef.current.updateValue();
+    maskRef?.current?.updateValue();
     setFocused(false);
     if (inputProps.onBlur) Promise.resolve(inputProps.onBlur(event)).then();
     const maskPipe = IMask.createPipe(Mask[mask] as any);
