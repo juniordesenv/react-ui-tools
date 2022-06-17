@@ -45,6 +45,8 @@ const Input: React.FC<InputProps> = ({
   const theme = useTheme() as Theme;
   const [focused, setFocused] = useState(false);
   const { ref, maskRef } = useIMask(Mask[mask]);
+  console.log(inputProps.value, 'inputProps.value');
+  console.log(ref.current, 'ref');
 
   useEffect(() => {
     if (maskRef && maskRef.current && maskRef.current.updateValue) {
@@ -67,6 +69,7 @@ const Input: React.FC<InputProps> = ({
   };
 
   const handleBlur = (event: React.FocusEvent<HTMLInputElement>): void => {
+    maskRef.current.updateValue();
     setFocused(false);
     if (inputProps.onBlur) Promise.resolve(inputProps.onBlur(event)).then();
   };
@@ -105,14 +108,14 @@ const Input: React.FC<InputProps> = ({
         autoComplete="off"
       />
       { !hideHelper && (
-        <HelperText
-          dataStatus={getDataStatus()}
-          touched={touched}
-          error={error}
-          focused={focused}
-          textHelper={textHelper}
-          disabled={inputProps.disabled}
-        />
+      <HelperText
+        dataStatus={getDataStatus()}
+        touched={touched}
+        error={error}
+        focused={focused}
+        textHelper={textHelper}
+        disabled={inputProps.disabled}
+      />
       ) }
     </InputWrap>
   );

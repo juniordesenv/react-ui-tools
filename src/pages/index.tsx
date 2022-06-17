@@ -20,9 +20,10 @@ const MainWrap = styled.div`
 `;
 
 const HomePage = () => {
+  // const [check, setCheck] = useState(true);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { inputs, setValues } = useForm<{ description: string }>({
-    initialValues: { description: '' },
+  const { inputs, setValues } = useForm<{ description: string, insurerValue: string}>({
+    initialValues: { description: '', insurerValue: '' },
     onSubmit: (values) => {
       console.log(values);
     },
@@ -42,9 +43,9 @@ const HomePage = () => {
         ]}
       />
       <Input
-        label="teste2"
-        mask="cnj"
-        {...inputs.description}
+        label="Importância segurada"
+        mask="money"
+        {...inputs.insurerValue}
       />
     </MainWrap>
   );
