@@ -8,3 +8,4 @@ export * from './use-toastr';
 export * from './use-tab-key-up';
 export * from './use-did-update-effect';
 export * from './use-array-field';
+export * from './use-navigation-key-up';

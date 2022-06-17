@@ -24,6 +24,7 @@ type FormResultType<T> = {
   onSubmit: (values: any) => void | Promise<void>;
   isValid: boolean;
   isSubmitting: boolean;
+  reset: () => void
 };
 export type InputPropsForm<T = any> = {
   value: any;
@@ -158,5 +159,12 @@ export const useForm = <T = Record<string, unknown>>({
     onSubmit: handleSubmit,
     isSubmitting,
     isValid,
+    reset: () => {
+      setErrors({});
+      setTouched({});
+      setIsSubmitting(false);
+      setIsValid(false);
+      setValues((initialValues || {}));
+    },
   };
 };

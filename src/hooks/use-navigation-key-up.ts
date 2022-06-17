@@ -1,9 +1,18 @@
 import { useEffect } from 'react';
 
-export const useEscKeyUp = (ref, callback) => {
+export const useNavigationKeyUp = (ref, {
+  keyUp,
+  keyDown,
+}: {
+  keyUp: () => void;
+  keyDown: () => void;
+}) => {
   const handleKeyUp = (e) => {
-    if (e.key === 'Escape') {
-      callback();
+    if (e.key === 'ArrowUp') {
+      keyUp();
+    }
+    if (e.key === 'ArrowDown') {
+      keyDown();
     }
   };
 
