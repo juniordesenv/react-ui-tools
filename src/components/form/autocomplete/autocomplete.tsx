@@ -45,7 +45,7 @@ const Row = memo(({ data, index, style }: any) => {
 
   useEffect(() => {
     if (rowRef.current) {
-      item.setRowHeight(index, rowRef.current.clientHeight);
+      item?.setRowHeight(index, rowRef.current.clientHeight);
     }
     // eslint-disable-next-line
   }, [rowRef]);
