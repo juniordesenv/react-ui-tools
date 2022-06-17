@@ -220,21 +220,6 @@
   resolved "https://registry.yarnpkg.com/@hapi/hoek/-/hoek-9.2.0.tgz#f3933a44e365864f4dad5db94158106d511e8131"
   integrity sha512-sqKVVVOe5ivCaXDWivIJYVSaEgdQK9ul7a4Kity5Iw7u9+wBAPbX1RMSnLLmp7O4Vzj0WOWwMAJsTL00xwaNug==
 
-"@juniordesenv/react-ui-tools@^1.0.113":
-  version "1.0.113"
-  resolved "https://npm.pkg.github.com/download/@juniordesenv/react-ui-tools/1.0.113/cc4e64184566f9caf8d4a6340a2632569bfa84208491b0023f4e6048d67c4159#1627715c4c11cb32d25240a8e4e3c6fdcaace7fc"
-  integrity sha512-87YV8wmlHQWUrT+obrrbHWDLwMROu2M71b/kGbiPi3H23WFVbPElx7Q5NKWHWEsZuXRLmZwh7WJLjLSYn9S4EQ==
-  dependencies:
-    "@emotion/core" "10.0.35"
-    "@emotion/styled" "10.0.27"
-    emotion-theming "10.0.27"
-    imask "^6.0.7"
-    react-calendar "^3.4.0"
-    react-dropzone "^11.3.2"
-    react-imask "^6.2.2"
-    react-scrollbars-custom "^4.0.25"
-    react-window "^1.8.7"
-
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/@mrmlnc/readdir-enhanced/-/readdir-enhanced-2.2.1.tgz#524af240d1a360527b730475ecfa1344aa540dde"

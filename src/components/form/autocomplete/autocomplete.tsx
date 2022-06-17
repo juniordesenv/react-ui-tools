@@ -209,10 +209,12 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
 
   useNavigationKeyUp(menuRef, {
     keyUp: () => {
+      // @ts-ignore
       menuRef.current?.children[focusedRow - 1]?.firstChild?.firstChild?.focus();
       setFocusedRow(focusedRow - 1);
     },
     keyDown: () => {
+      // @ts-ignore
       menuRef.current?.children[focusedRow + 1]?.firstChild?.firstChild?.focus();
       setFocusedRow(focusedRow + 1);
     },
