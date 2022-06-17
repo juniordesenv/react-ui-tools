@@ -64,7 +64,8 @@ const Confirmation: React.FC<ConfirmationProps> = ({
           <Button
             variant="contained"
             data-testid={`${dataTestid}-confirm-action`}
-            onClick={handleConfirmation}
+            onClick={action ? handleConfirmation : null}
+            type={action ? 'button' : 'submit'}
           >
             { confirmText || 'Confirmar' }
           </Button>

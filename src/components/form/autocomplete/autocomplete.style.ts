@@ -49,8 +49,6 @@ const inputWrap = ({
     padding: 8px 0;
     box-shadow: ${theme.card.shadow};
     background-color: white;
-    height: max-content;
-    max-height: 300px;
     position: absolute;
     overflow-y: auto;
     top: ${inputHeight}px;
@@ -59,23 +57,29 @@ const inputWrap = ({
     z-index: 4;
   }
   
-  ul {
+  .content-options .list {
       list-style: none;
       
-      li {
-        button {
-          cursor: pointer;
-          outline: none;
-          border: none;
-          text-align: left;
-          width: 100%;
-          height: 100%;
-          padding: 8px;
-          background-color: transparent;
-          
-          :focus,:hover {
-            background-color: #FAFAFA;
+      div {
+        display: block;
+        
+        div {
+          position: relative;
+
+          button {
+            cursor: pointer;
+            outline: none;
             border: none;
+            text-align: left;
+            width: 100%;
+            height: 100%;
+            padding: 8px;
+            background-color: transparent;
+
+            :focus,:hover {
+              background-color: #FAFAFA;
+              border: none;
+            }
           }
         }
       }

@@ -1,10 +1,15 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, {
+  Component, memo, Ref, useEffect, useRef, useState,
+} from 'react';
 import styled from '@emotion/styled';
 import { HelperText } from '@/components/form/helper-text/helper-text';
 import { useTheme } from 'emotion-theming';
 import { Theme, VariantColorsType } from '@/styles/theme';
-import { useEscKeyUp, useOutsideClick, useTabKeyUp } from '@/hooks';
+import {
+  useEscKeyUp, useOutsideClick, useTabKeyUp, useDebounce, useNavigationKeyUp,
+} from '@/hooks';
 import { removeDiacritics } from '@/helpers';
+import { VariableSizeList as List, areEqual } from 'react-window';
 import Styles from './autocomplete.style';
 
 const InputWrap = styled.div`${Styles.inputWrap}`;
@@ -29,7 +34,54 @@ HTMLInputElement
   variant?: VariantColorsType;
   options: Option[];
   limitShowed?: number;
+  itemSize?: number;
+  maxSize?: number;
+  defaultDebounce?: number;
 };
+const Row = memo(({ data, index, style }: any) => {
+  const rowRef = useRef<any>({});
+
+  const item = data[index];
+
+  useEffect(() => {
+    if (rowRef.current) {
+      item.setRowHeight(index, rowRef.current.clientHeight);
+    }
+    // eslint-disable-next-line
+  }, [rowRef]);
+
+  if (!item) {
+    return (
+      <LiNotFoundWrap ref={rowRef}>
+        Nenhum resultado correspondente
+      </LiNotFoundWrap>
+    );
+  }
+
+  return (
+    <div
+      style={style}
+      key={item.value}
+    >
+      <div
+        ref={rowRef}
+      >
+        <button
+          tabIndex={-1}
+          onClick={() => {
+            item.onClick(item);
+          }}
+          type="button"
+          onMouseEnter={() => {
+            item.onFocusRow(index);
+          }}
+        >
+          {item.description}
+        </button>
+      </div>
+    </div>
+  );
+}, areEqual);
 
 const Autocomplete: React.FC<AutocompleteProps> = ({
   error,
@@ -43,10 +95,13 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
   variant = 'primary',
   options,
   limitShowed,
+  itemSize = 35,
+  maxSize = 300,
+  defaultDebounce = 100,
   ...inputProps
 }: AutocompleteProps) => {
   const theme = useTheme() as Theme;
-  const [value, setValue] = useState('');
+  const [debouncedValue, value, setValue] = useDebounce<string>('', defaultDebounce);
   const [inputFocused, setInputFocused] = useState<boolean>(false);
   const [showDropdown, setShowDropdown] = useState<boolean>(false);
   const [isEnterFocus, setIsEnterFocus] = useState<boolean>(false);
@@ -54,6 +109,84 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
   const [triggerValidation, setTriggerValidation] = useState<boolean>(false);
   const menuRef = useRef<HTMLUListElement>();
   const inputRef = useRef<HTMLInputElement>();
+  const rowHeights = useRef({});
+  const listRef = useRef<any>({});
+  const [focusedRow, setFocusedRow] = useState<any>(null);
+
+  const getFilteredOptions = () => {
+    if (!value) return options;
+    const terms = value.split(' ');
+    let filtered = options.filter((opt) => terms
+      .reduce((previousResult, searchTerm) => previousResult && removeDiacritics(opt.description)
+        .toLowerCase()?.includes(removeDiacritics(searchTerm)
+          .toLowerCase()), true));
+    if (limitShowed) {
+      filtered = filtered.slice(0, 9);
+    }
+    return filtered;
+  };
+
+  const [filteredOptions, setFilteredOptions] = useState(options);
+
+  const changeOption = (opt: Option) => {
+    if (inputProps.readOnly || inputProps.disabled) return;
+    const event:any = {
+      target: {
+        name: inputProps.name,
+        value: opt.value,
+      },
+    };
+    inputProps.onChange(event);
+    setValue(opt.description);
+    setShowDropdown(false);
+  };
+
+  const handleMouseEnterOption = (optIndex: number) => {
+    if (menuRef && menuRef.current) {
+      const ul = menuRef?.current;
+      const button = ul.children[optIndex]?.children[0] as HTMLButtonElement;
+      button?.focus();
+    }
+  };
+
+  const handleKeyDownOption = (
+    event: React.KeyboardEvent<HTMLButtonElement>,
+    key: string,
+    optIndex: number,
+  ) => {
+    if (menuRef && menuRef.current) {
+      const ul = menuRef?.current;
+      if (key === 'ArrowUp' && optIndex > 0) {
+        event.preventDefault();
+        const button = ul.children[optIndex - 1]?.children[0] as HTMLButtonElement;
+        button?.focus();
+      } else if (key === 'ArrowDown' && optIndex < (options.length - 1)) {
+        event.preventDefault();
+        const button = ul.children[optIndex + 1]?.children[0] as HTMLButtonElement;
+        button?.focus();
+      }
+    }
+  };
+
+  const setRowHeight = (index, size) => {
+    listRef.current.resetAfterIndex(0);
+    rowHeights.current = { ...rowHeights.current, [index]: size };
+  };
+
+  useEffect(() => {
+    let nextList = options;
+    if (!isEnterFocus) nextList = getFilteredOptions();
+    setFilteredOptions(nextList.map((data, optIndex) => ({
+      ...data,
+      onClick: (opt) => changeOption(opt),
+      setRowHeight,
+      onFocusRow: setFocusedRow,
+    })));
+  }, [debouncedValue, isEnterFocus, options]);
+
+  useEffect(() => {
+    rowHeights.current = {};
+  }, [filteredOptions]);
 
   useOutsideClick(menuRef, () => {
     if (showDropdown && !inputFocused) {
@@ -72,6 +205,17 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
       setShowDropdown(false);
       setTriggerValidation(true);
     }
+  });
+
+  useNavigationKeyUp(menuRef, {
+    keyUp: () => {
+      menuRef.current?.children[focusedRow - 1]?.firstChild?.firstChild?.focus();
+      setFocusedRow(focusedRow - 1);
+    },
+    keyDown: () => {
+      menuRef.current?.children[focusedRow + 1]?.firstChild?.firstChild?.focus();
+      setFocusedRow(focusedRow + 1);
+    },
   });
 
   const validOptions = () => {
@@ -136,79 +280,28 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
     if (forceValidationOnExit) setTriggerValidation(true);
   };
 
-  const changeOption = (opt: Option) => {
-    if (inputProps.readOnly || inputProps.disabled) return;
-    const event:any = {
-      target: {
-        name: inputProps.name,
-        value: opt.value,
-      },
-    };
-    inputProps.onChange(event);
-    setValue(opt.description);
-    setShowDropdown(false);
+  //
+  // const renderOptions = () => {
+  //   if (resultFilter.length === 0) {
+  //     return (
+  //       <LiNotFoundWrap>
+  //         Nenhum resultado correspondente
+  //       </LiNotFoundWrap>
+  //     );
+  //   }
+  //   return resultFilter;
+  // };
+
+  const getHeightRows = () => {
+    const optionsAux = filteredOptions;
+    const height = itemSize * optionsAux.length;
+    if (height > maxSize) return maxSize;
+    return height || itemSize;
   };
 
-  const handleMouseEnterOption = (optIndex: number) => {
-    if (menuRef && menuRef.current) {
-      const ul = menuRef?.current;
-      const button = ul.children[optIndex].children[0] as HTMLButtonElement;
-      button.focus();
-    }
-  };
-
-  const handleKeyDownOption = (
-    event: React.KeyboardEvent<HTMLButtonElement>,
-    key: string,
-    optIndex: number,
-  ) => {
-    if (menuRef && menuRef.current) {
-      const ul = menuRef?.current;
-      if (key === 'ArrowUp' && optIndex > 0) {
-        event.preventDefault();
-        const button = ul.children[optIndex - 1].children[0] as HTMLButtonElement;
-        button.focus();
-      } else if (key === 'ArrowDown' && optIndex < (options.length - 1)) {
-        event.preventDefault();
-        const button = ul.children[optIndex + 1].children[0] as HTMLButtonElement;
-        button.focus();
-      }
-    }
-  };
-
-  const renderOptions = () => {
-    const terms = value.split(' ');
-    let filtered = isEnterFocus ? options : options.filter((opt) => terms
-      .reduce((previousResult, searchTerm) => previousResult && removeDiacritics(opt.description)
-        .toLowerCase()?.includes(removeDiacritics(searchTerm)
-          .toLowerCase()) && opt.value !== inputProps.value, true));
-    if (limitShowed) {
-      filtered = filtered.slice(0, 9);
-    }
-    const resultFilter = filtered.map((opt, optIndex) => (
-      <li key={opt.value.toString()}>
-        <button
-          tabIndex={-1}
-          onClick={() => {
-            changeOption(opt);
-          }}
-          type="button"
-          onMouseEnter={() => { handleMouseEnterOption(optIndex); }}
-          onKeyDown={(event) => { handleKeyDownOption(event, event.key, optIndex); }}
-        >
-          {opt.description}
-        </button>
-      </li>
-    ));
-    if (resultFilter.length === 0) {
-      return (
-        <LiNotFoundWrap>
-          Nenhum resultado correspondente
-        </LiNotFoundWrap>
-      );
-    }
-    return resultFilter;
-  };
+  function getRowHeight(index) {
+    return rowHeights.current[index] || 35;
+  }
 
   return (
     <InputWrap
@@ -245,15 +338,18 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
       />
       { showDropdown && (
         <div className="content-options">
-          {/* <Scrollbar> */}
-          <ul
-            ref={menuRef}
+          <List
+            className="list"
+            height={getHeightRows()}
+            itemCount={filteredOptions.length || 1}
+            ref={listRef}
+            itemSize={getRowHeight}
+            width="100%"
+            innerRef={menuRef}
+            itemData={filteredOptions}
           >
-            {
-              renderOptions()
-            }
-          </ul>
-          {/* </Scrollbar> */}
+            {Row}
+          </List>
         </div>
       )}
       { !hideHelper && (
