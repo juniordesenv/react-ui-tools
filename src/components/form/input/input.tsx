@@ -45,8 +45,8 @@ const Input: React.FC<InputProps> = ({
   const theme = useTheme() as Theme;
   const [focused, setFocused] = useState(false);
   const { ref, maskRef } = useIMask(Mask[mask]);
-  console.log(inputProps.value, 'inputProps.value');
-  console.log(ref.current, 'ref');
+  const [triggerBlur, setTriggerBlur] = useState(null);
+  const [triggerBlur2, setTriggerBlur2] = useState(null);
 
   useEffect(() => {
     if (maskRef && maskRef.current && maskRef.current.updateValue) {
@@ -63,6 +63,25 @@ const Input: React.FC<InputProps> = ({
     }
   }, [inputProps.value]);
 
+  useEffect(() => {
+    if (mask === 'money' && triggerBlur) {
+      inputProps.onChange({
+        target: {
+          name: inputProps.name,
+          value: maskRef.current.value,
+        },
+      } as any);
+      inputProps.onBlur({
+        ...triggerBlur,
+        target: {
+          name: inputProps.name,
+          value: maskRef.current.value,
+        },
+      } as any);
+      setTriggerBlur(null);
+    }
+  }, [triggerBlur, maskRef.current?.value]);
+
   const handleFocus = (event: React.FocusEvent<HTMLInputElement>): void => {
     setFocused(true);
     if (!inputProps.readOnly) event.target.readOnly = false;
@@ -71,8 +90,11 @@ const Input: React.FC<InputProps> = ({
 
   const handleBlur = (event: React.FocusEvent<HTMLInputElement>): void => {
     setFocused(false);
-    if (inputProps.onBlur) Promise.resolve(inputProps.onBlur(event)).then();
+    if (inputProps.onBlur && mask !== 'money') Promise.resolve(inputProps.onBlur(event)).then();
     if (maskRef.current) maskRef.current.updateValue();
+    if (mask === 'money') {
+      setTriggerBlur(event);
+    }
   };
 
   const getDataStatus = () => {
