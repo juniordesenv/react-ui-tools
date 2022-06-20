@@ -1,3 +1,4 @@
+import { useDidUpdateEffect } from '@/hooks';
 import React, { useEffect, useState } from 'react';
 
 import { useTheme } from 'emotion-theming';
@@ -46,7 +47,6 @@ const Input: React.FC<InputProps> = ({
   const [focused, setFocused] = useState(false);
   const { ref, maskRef } = useIMask(Mask[mask]);
   const [triggerBlur, setTriggerBlur] = useState(null);
-  const [triggerBlur2, setTriggerBlur2] = useState(null);
 
   useEffect(() => {
     if (maskRef && maskRef.current && maskRef.current.updateValue) {
@@ -63,24 +63,26 @@ const Input: React.FC<InputProps> = ({
     }
   }, [inputProps.value]);
 
-  useEffect(() => {
+  useDidUpdateEffect(() => {
     if (mask === 'money' && triggerBlur) {
+      const maskPipe = IMask.createPipe(Mask[mask] as any);
       inputProps.onChange({
         target: {
           name: inputProps.name,
-          value: maskRef.current.value,
+          value: maskPipe(maskRef.current.value),
         },
       } as any);
+      setTriggerBlur(null);
+    } else {
       inputProps.onBlur({
         ...triggerBlur,
         target: {
           name: inputProps.name,
-          value: maskRef.current.value,
+          value: inputProps.value,
         },
       } as any);
-      setTriggerBlur(null);
     }
-  }, [triggerBlur, maskRef.current?.value]);
+  }, [triggerBlur]);
 
   const handleFocus = (event: React.FocusEvent<HTMLInputElement>): void => {
     setFocused(true);
@@ -131,14 +133,14 @@ const Input: React.FC<InputProps> = ({
         autoComplete="off"
       />
       { !hideHelper && (
-      <HelperText
-        dataStatus={getDataStatus()}
-        touched={touched}
-        error={error}
-        focused={focused}
-        textHelper={textHelper}
-        disabled={inputProps.disabled}
-      />
+        <HelperText
+          dataStatus={getDataStatus()}
+          touched={touched}
+          error={error}
+          focused={focused}
+          textHelper={textHelper}
+          disabled={inputProps.disabled}
+        />
       ) }
     </InputWrap>
   );
