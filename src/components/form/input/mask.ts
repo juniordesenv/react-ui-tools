@@ -58,10 +58,26 @@ const money = {
   signed: true, // disallow negative
   thousandsSeparator: '.', // any single char
   padFractionalZeros: true, // if true, then pads zeros at end to the length of scale
-  normalizeZeros: true, // appends or removes zeros at ends
+  normalizeZeros: false, // appends or removes zeros at ends
   radix: ',', // fractional delimiter
   mapToRadix: [''], // symbols to process as radix
 };
+
+// const money = {
+//   mask: 'R$ num',
+//   blocks: {
+//     num: {
+//       mask: Number, // enable number mask
+//       scale: 2, // digits after point, 0 for integers
+//       signed: true, // disallow negative
+//       thousandsSeparator: '.', // any single char
+//       padFractionalZeros: true, // if true, then pads zeros at end to the length of scale
+//       normalizeZeros: true, // appends or removes zeros at ends
+//       radix: ',', // fractional delimiter
+//       mapToRadix: [''], // symbols to process as radix
+//     },
+//   },
+// };
 
 const postalCode = {
   mask: '00000-000',
