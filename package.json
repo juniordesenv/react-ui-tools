@@ -1,6 +1,6 @@
 {
   "name": "@juniordesenv/react-ui-tools",
-  "version": "1.0.144",
+  "version": "1.0.146",
   "repository": "git://github.com/juniordesenv/react-ui-tools.git",
   "devDependencies": {
     "@rollup/plugin-commonjs": "^19.0.0",
@@ -21,7 +21,7 @@
     "react-icons": "^4.2.0",
     "rollup": "^2.48.0",
     "rollup-plugin-peer-deps-external": "^2.2.4",
-    "rollup-plugin-typescript2": "^0.30.0",
+    "rollup-plugin-typescript2": "^0.31.0",
     "tsconfig-paths": "^3.9.0",
     "tscpaths": "^0.0.9",
     "typescript": "^4.2.4"
